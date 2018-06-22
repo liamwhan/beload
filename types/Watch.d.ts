@@ -57,7 +57,7 @@ export declare class Watcher extends EventEmitter {
      * @param watchOptions Options object
      */
     constructor(globPattern: string | string[], watchOptions?: WatcherOptions);
-    protected log(fnName: string, ...logargs: any[]): void;
+    protected log(...logargs: any[]): void;
     protected globFiles(globPattern: string | string[]): string[];
     protected isDirectory(source: string): boolean;
     protected isFile(source: string): boolean;

@@ -93,10 +93,10 @@ export class Watcher extends EventEmitter {
 
     }
 
-    protected log(fnName: string, ...logargs: any[]): void {
+    protected log(...logargs: any[]): void {
         if (this.options.verbose) {
             // tslint:disable-next-line:no-console
-            console.log(`${EOL}${Colors(`ReloadWatcher::${fnName}`, "yellow") }`, ...logargs, EOL);
+            console.log(`${EOL}${Colors(`ReloadWatcher::${Callsite()[1].getFunctionName()}`, "yellow") }`, ...logargs, EOL);
         }
     }
 
@@ -121,11 +121,10 @@ export class Watcher extends EventEmitter {
     }
 
     protected onWatchEventFile(e: string, f: string): void {
-        const FN_NAME = "FileWatcher";
         if (this.locked || e !== "change") { return; }
         this.lock();
 
-        this.log(FN_NAME,  "Node.js FSEvent:", e, "Node FSEvent File:", f);
+        this.log("Node.js FSEvent:", e, "Node FSEvent File:", f);
         this.emit("all", f);
         this.emit("change", f);
     }
@@ -139,18 +138,17 @@ export class Watcher extends EventEmitter {
      * @param dir {string} the directory
      */
     protected onWatchEventDir(e: string, f: string, dir: string): void {
-        const FN_NAME = "DirectoryWatcher";
         if (this.locked || e !== "rename") { return; }
         this.lock();
 
-        this.log(FN_NAME, "Node.js FSEvent:", e, "Node FSEvent File:", f, "Directory:", dir);
+        this.log("Node.js FSEvent:", e, "Node FSEvent File:", f, "Directory:", dir);
         const abs = path.join(dir, path.basename(f));
         if (!fs.existsSync(abs)) {
             
             const renamedFile = this.getRenamed(dir);
             if (typeof renamedFile !== "undefined") {
-                this.log(FN_NAME, `Old File: ${abs}`)
-                this.log(FN_NAME, `Renamed File: ${renamedFile}`)
+                this.log(`Old File: ${abs}`)
+                this.log(`Renamed File: ${renamedFile}`)
                 this.emit("all", abs, renamedFile);
                 this.emit("rename", abs, renamedFile);
                 this.removeWatcher(abs);
@@ -180,8 +178,8 @@ export class Watcher extends EventEmitter {
     protected getRenamed(dir: string): string {
         const FN_NAME = "isRename";
         const files = this.getFiles(dir);
-        this.log(FN_NAME, "Disk Files:", files);
-        this.log(FN_NAME, "Watched Files", this.files);
+        this.log("Disk Files:", files);
+        this.log("Watched Files", this.files);
         for (const f of files) {
             if (!this.files.includes(f)) { return f; }
         }
@@ -222,12 +220,11 @@ export class Watcher extends EventEmitter {
      * `all` - Emitted for all the above events
      */
     public Start(): this {
-        const FN_NAME = "Start"
-        this.log(FN_NAME, "Watching Files:" + EOL + this.files.map((f) => `\u001b[32m${f}\u001b[39m`).join(EOL));
+        this.log("Watching Files:" + EOL + this.files.map((f) => `\u001b[32m${f}\u001b[39m`).join(EOL));
         for (const file of this.files) {
             this.watchers.push(this.createFileWatcher(file));
         }
-        this.log(FN_NAME, "Watching Directories:" + EOL + this.directories.map((f) => `\u001b[32m${f}\u001b[39m`).join(EOL));
+        this.log("Watching Directories:" + EOL + this.directories.map((f) => `\u001b[32m${f}\u001b[39m`).join(EOL));
         for (const dir of this.directories) {
             this.watchers.push(this.createDirWatcher(dir));
         }

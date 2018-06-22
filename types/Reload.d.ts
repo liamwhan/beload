@@ -5,6 +5,8 @@ export declare class Reload {
     protected browserWindows: BrowserWindow[];
     protected watcher: Watcher;
     protected events: LegalEvents[];
+    protected options: WatcherOptions;
     constructor(glob: string | string[], app: App, events?: LegalEvents | LegalEvents[], watcherOptions?: WatcherOptions);
-    protected Reload(): void;
+    protected log(...logargs: any[]): void;
+    protected reload(): void;
 }

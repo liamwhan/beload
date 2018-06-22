@@ -1,5 +1,7 @@
 import {App, BrowserWindow, Event} from "electron";
 import {Watcher, WatcherOptions, LegalEvents} from "./Watch";
+import {Colors} from "./Colors";
+import {EOL} from "os";
 import Callsite from "callsite";
 import path = require("path");
 
@@ -8,19 +10,20 @@ export class Reload {
     protected browserWindows: BrowserWindow[] = [];
     protected watcher: Watcher;
     protected events: LegalEvents[];
+    protected options: WatcherOptions;
 
     constructor(glob: string|string[], app: App, events: LegalEvents|LegalEvents[] = "all", watcherOptions: WatcherOptions = {}) {
         this.app = app;
-
+        this.options = watcherOptions;
+        this.options.cwd = this.options.cwd || path.dirname(Callsite()[1].getFileName());
         this.events = (events instanceof Array) ? events : [events];
-
-        const cwd = path.dirname(Callsite()[1].getFileName());
-        this.watcher = new Watcher(glob, {cwd});
+        this.watcher = new Watcher(glob, watcherOptions);
         
         for (const eventType of this.events) {
-            
-            this.watcher.on(eventType, () => this.Reload());
+            this.log(`Adding Listener for event ${eventType}`);
+            this.watcher.on(eventType, () => this.reload());
         }
+        
         this.watcher.Start();
 
         this.app.on("browser-window-created", (event: Event, window: BrowserWindow) => {
@@ -32,7 +35,14 @@ export class Reload {
         });
     }
 
-    protected Reload(): void {
+    protected log(...logargs: any[]): void {
+        if (this.options.verbose) {
+            // tslint:disable-next-line:no-console
+            console.log(`${EOL}${Colors(`Reloader::${Callsite()[1].getFunctionName()}`, "green") }`, ...logargs, EOL);
+        }
+    }
+
+    protected reload(): void {
         for (const win of this.browserWindows) {
             win.webContents.reloadIgnoringCache();
         }

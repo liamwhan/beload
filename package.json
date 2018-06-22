@@ -1,0 +1,24 @@
+{
+  "name": "eletron-reload-ts",
+  "version": "0.0.1",
+  "description": "Typescipt port of Electron reload",
+  "main": "dist/lib/reload.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/hammus/reload.git"
+  },
+  "keywords": [
+    "electron",
+    "reload",
+    "hot-reload"
+  ],
+  "author": "Liam Whan",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/hammus/reload/issues"
+  },
+  "homepage": "https://github.com/hammus/reload#readme"
+}

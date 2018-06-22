@@ -9,7 +9,7 @@ export class Reload {
     protected watcher: Watcher;
     protected events: LegalEvents[];
 
-    constructor(glob: string|string, app: App, events: LegalEvents|LegalEvents[] = "all", watcherOptions: WatcherOptions = {}) {
+    constructor(glob: string|string[], app: App, events: LegalEvents|LegalEvents[] = "all", watcherOptions: WatcherOptions = {}) {
         this.app = app;
 
         this.events = (events instanceof Array) ? events : [events];

@@ -2,7 +2,7 @@
   "name": "electron-reload-ts",
   "version": "0.0.1",
   "description": "Typescipt port of Electron reload",
-  "main": "dist/index.js",
+  "main": "dist/lib/index.js",
   "types": "types/index.d.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",

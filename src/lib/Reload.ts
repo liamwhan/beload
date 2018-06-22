@@ -16,8 +16,10 @@ export class Reload {
         this.app = app;
         this.options = watcherOptions;
         this.options.cwd = this.options.cwd || path.dirname(Callsite()[1].getFileName());
+        this.log("Working Directory:", this.options.cwd);
+        this.log("Glob", glob);
         this.events = (events instanceof Array) ? events : [events];
-        this.watcher = new Watcher(glob, watcherOptions);
+        this.watcher = new Watcher(glob, this.options);
         
         for (const eventType of this.events) {
             this.log(`Adding Listener for event ${eventType}`);
@@ -27,6 +29,7 @@ export class Reload {
         this.watcher.Start();
 
         this.app.on("browser-window-created", (event: Event, window: BrowserWindow) => {
+            this.log("New BrowserWindow created, adding to watch list.")
             this.browserWindows.push(window);
             window.on("closed", () => {
                 const i  = this.browserWindows.indexOf(window);
@@ -38,7 +41,7 @@ export class Reload {
     protected log(...logargs: any[]): void {
         if (this.options.verbose) {
             // tslint:disable-next-line:no-console
-            console.log(`${EOL}${Colors(`Reloader::${Callsite()[1].getFunctionName()}`, "green") }`, ...logargs, EOL);
+            console.log(`${Colors(`Reloader::${Callsite()[1].getFunctionName()}`, "green") }`, ...logargs, EOL);
         }
     }
 

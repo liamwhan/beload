@@ -87,6 +87,9 @@ export class Watcher extends EventEmitter {
         // Callsite Gets the directory of the file this constructor was called from so we can glob from there instead of here
         this.options.cwd = (typeof this.options.cwd === "undefined") ? path.dirname(Callsite()[1].getFileName()) : this.options.cwd;
 
+        this.log("Working Directory", this.options.cwd);
+        this.log("Options", this.options);
+
         this.files = this.globFiles(globPattern).map((g) => path.normalize(g));
         this.directories = this.files.map((f) => path.dirname(f)).unique();
 
@@ -96,7 +99,7 @@ export class Watcher extends EventEmitter {
     protected log(...logargs: any[]): void {
         if (this.options.verbose) {
             // tslint:disable-next-line:no-console
-            console.log(`${EOL}${Colors(`ReloadWatcher::${Callsite()[1].getFunctionName()}`, "yellow") }`, ...logargs, EOL);
+            console.log(`${Colors(`ReloadWatcher::${Callsite()[1].getFunctionName()}`, "cyan") }`, ...logargs, EOL);
         }
     }
 

@@ -3,8 +3,6 @@ import {Watcher, WatcherOptions, LegalEvents} from "./Watch";
 import Callsite from "callsite";
 import path = require("path");
 
-
-
 export class Reload {
     protected app: App;
     protected browserWindows: BrowserWindow[] = [];

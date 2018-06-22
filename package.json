@@ -2,9 +2,11 @@
   "name": "eletron-reload-ts",
   "version": "0.0.1",
   "description": "Typescipt port of Electron reload",
-  "main": "dist/lib/reload.js",
+  "main": "dist/index.js",
+  "types": "types/index.d.ts",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "install": ""
   },
   "repository": {
     "type": "git",
@@ -20,5 +22,20 @@
   "bugs": {
     "url": "https://github.com/hammus/reload/issues"
   },
-  "homepage": "https://github.com/hammus/reload#readme"
+  "homepage": "https://github.com/hammus/reload#readme",
+  "devDependencies": {
+    "@types/callsite": "^1.0.30",
+    "@types/colors": "^1.2.1",
+    "@types/globby": "^8.0.0",
+    "@types/node": "^10.3.4",
+    "electron": "^2.0.3",
+    "typescript": "^2.9.2"
+  },
+  "peerDependencies": {
+    "electron": "^2.0.3"
+  },
+  "dependencies": {
+    "callsite": "^1.0.0",
+    "globby": "^8.0.1"
+  }
 }

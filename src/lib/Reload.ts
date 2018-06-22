@@ -18,7 +18,7 @@ export class Reload {
         this.watcher = new Watcher(glob, {cwd});
         
         for (const eventType of this.events) {
-
+            
             this.watcher.on(eventType, () => this.Reload());
         }
         this.watcher.Start();

@@ -29,10 +29,8 @@ const glob = [`../**/*`, `../../css/**/*`];
 //  Init Beload and Start watching files.
 const Reloader = new Reload(glob, app, "all", {verbose: true});
 
-
-## License
 ```
-
+## License
 MIT License
 
 Copyright (c) 2018 Liam Whan

@@ -1,6 +1,6 @@
 import {App, BrowserWindow, Event} from "electron";
-import {Watcher, WatcherOptions, LegalEvents} from "./Watch";
-import {Colors} from "./Colors";
+import {Bewatch, WatcherOptions, LegalEvents} from "bewatch";
+import {Colours} from "colours-ts";
 import {EOL} from "os";
 import Callsite from "callsite";
 import path = require("path");
@@ -8,7 +8,7 @@ import path = require("path");
 export class Reload {
     protected app: App;
     protected browserWindows: BrowserWindow[] = [];
-    protected watcher: Watcher;
+    protected watcher: Bewatch;
     protected events: LegalEvents[];
     protected options: WatcherOptions;
 
@@ -19,7 +19,7 @@ export class Reload {
         this.log("Working Directory:", this.options.cwd);
         this.log("Glob", glob);
         this.events = (events instanceof Array) ? events : [events];
-        this.watcher = new Watcher(glob, this.options);
+        this.watcher = new Bewatch(glob, this.options);
         
         for (const eventType of this.events) {
             this.log(`Adding Listener for event ${eventType}`);
@@ -41,7 +41,7 @@ export class Reload {
     protected log(...logargs: any[]): void {
         if (this.options.verbose) {
             // tslint:disable-next-line:no-console
-            console.log(`${Colors(`Reloader::${Callsite()[1].getFunctionName()}`, "green") }`, ...logargs, EOL);
+            console.log(`${Colours(`Reloader::${Callsite()[1].getFunctionName()}`, "green") }`, ...logargs, EOL);
         }
     }
 

@@ -1,9 +1,9 @@
 import { App, BrowserWindow } from "electron";
-import { Watcher, WatcherOptions, LegalEvents } from "./Watch";
+import { Bewatch, WatcherOptions, LegalEvents } from "bewatch";
 export declare class Reload {
     protected app: App;
     protected browserWindows: BrowserWindow[];
-    protected watcher: Watcher;
+    protected watcher: Bewatch;
     protected events: LegalEvents[];
     protected options: WatcherOptions;
     constructor(glob: string | string[], app: App, events?: LegalEvents | LegalEvents[], watcherOptions?: WatcherOptions);

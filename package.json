@@ -5,8 +5,7 @@
   "main": "dist/lib/index.js",
   "types": "types/index.d.ts",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "install": ""
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
@@ -35,7 +34,9 @@
     "electron": "^2.0.3"
   },
   "dependencies": {
+    "bewatch": "git+https://github.com/hammus/bewatch.git",
     "callsite": "^1.0.0",
+    "colours-ts": "git+https://github.com/hammus/colours-ts.git",
     "globby": "^8.0.1"
   }
 }
